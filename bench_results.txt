@@ -2,15 +2,15 @@ goos: darwin
 goarch: amd64
 pkg: github.com/KEINOS/go-donegroup/donegroup
 cpu: Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz
-BenchmarkDone-4   	146092514	         8.202 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	168087256	         7.207 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	166029951	         7.131 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	168053912	         7.119 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	165700188	         7.180 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	166938502	         7.142 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	167935906	         7.116 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	168029325	         7.116 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	168215928	         7.119 ns/op	       0 B/op	       0 allocs/op
-BenchmarkDone-4   	167123810	         7.119 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1340155	       869.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1518324	       789.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1521502	       786.9 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1523510	       788.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1525045	       788.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1524906	       788.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1523133	       788.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1525704	       789.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1522238	       786.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkDone-4   	 1526558	       786.8 ns/op	       0 B/op	       0 allocs/op
 PASS
-ok  	github.com/KEINOS/go-donegroup/donegroup	22.274s
+ok  	github.com/KEINOS/go-donegroup/donegroup	20.521s

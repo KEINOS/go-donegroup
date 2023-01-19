@@ -1,6 +1,8 @@
 # go-donegroup
 
-`go-donegroup` is a bit flag manager. Which is somewhat similar to `sync.WaitGroup` but with an index.
+`go-donegroup` is a Go package to manage bit flags.
+
+Which is somewhat similar to `sync.WaitGroup` but with an index.
 
 ## Usage
 

@@ -11,27 +11,31 @@ import (
 //  DoneGroup.getPos()
 // ----------------------------------------------------------------------------
 
+// DataSpecGetPos is the data provider to check the required spec for getPos
+// method.
+var DataSpecGetPos = []struct {
+	indexIn    int
+	unitIndex  int
+	posIndex   int
+	requireErr bool
+}{
+	{indexIn: 0, unitIndex: 0, posIndex: 0, requireErr: true},
+	{indexIn: 1, unitIndex: 0, posIndex: 1, requireErr: false},
+	{indexIn: 63, unitIndex: 0, posIndex: 63, requireErr: false},
+	{indexIn: 64, unitIndex: 0, posIndex: 64, requireErr: false},
+	{indexIn: 65, unitIndex: 1, posIndex: 1, requireErr: false},
+	{indexIn: 128, unitIndex: 1, posIndex: 64, requireErr: false},
+	{indexIn: 129, unitIndex: 2, posIndex: 1, requireErr: false},
+	{indexIn: 130, unitIndex: 0, posIndex: 0, requireErr: true},
+}
+
 func TestDoneGroup_getPos(t *testing.T) {
 	t.Parallel()
 
 	dg, err := New(NumFlagPerUnitMax*2 + 1)
 	require.NoError(t, err, "failed to initialize DoneGroup")
 
-	for numTest, testData := range []struct {
-		indexIn    int
-		unitIndex  int
-		posIndex   int
-		requireErr bool
-	}{
-		{indexIn: 0, unitIndex: 0, posIndex: 0, requireErr: true},
-		{indexIn: 1, unitIndex: 0, posIndex: 1, requireErr: false},
-		{indexIn: 63, unitIndex: 0, posIndex: 63, requireErr: false},
-		{indexIn: 64, unitIndex: 0, posIndex: 64, requireErr: false},
-		{indexIn: 65, unitIndex: 1, posIndex: 1, requireErr: false},
-		{indexIn: 128, unitIndex: 1, posIndex: 64, requireErr: false},
-		{indexIn: 129, unitIndex: 2, posIndex: 1, requireErr: false},
-		{indexIn: 130, unitIndex: 0, posIndex: 0, requireErr: true},
-	} {
+	for numTest, testData := range DataSpecGetPos {
 		actualUnitIndex, actualPosIndex, actualErr := dg.getPos(testData.indexIn)
 
 		if testData.requireErr {
@@ -78,6 +82,28 @@ func TestDoneGroup_MustUndone(t *testing.T) {
 	require.Panics(t, func() {
 		dg.MustUndone(100)
 	}, "MustDone should panic on error")
+}
+
+// ----------------------------------------------------------------------------
+//  DoneGroup.undone()
+// ----------------------------------------------------------------------------
+
+// This test detects the XOR bug in undone() method. Calling more than once
+// consecutively with the same index should not turn true.
+func TestDoneGroup_undone_twice(t *testing.T) {
+	t.Parallel()
+
+	dg, err := New(64) // flag range 1-64
+	require.NoError(t, err, "failed to initialize DoneGroup during test")
+
+	require.False(t, dg.IsDone(3), "it should false if not set yet")
+
+	require.NoError(t, dg.undone(3), "it should not error if index is in range(1-64)")
+	require.False(t, dg.IsDone(3), "it should be false if undone success with the same index")
+
+	// Call undone() again
+	require.NoError(t, dg.undone(3), "it should not error if index is in range(1-64)")
+	require.False(t, dg.IsDone(3), "it should not turn true if undone success with the same index")
 }
 
 // ----------------------------------------------------------------------------
